@@ -3,9 +3,15 @@ import 'package:flutter_sticky_session/constants.dart';
 
 class DecoratedEditText extends StatefulWidget {
   final String text;
+  final int maxLines;
+  final bool showCounter;
+  final int maxCaracteres;
 
   const DecoratedEditText({
     required this.text,
+    this.maxLines = 1,
+    this.maxCaracteres = 30,
+    this.showCounter = false,
     Key? key
   }) : super(key: key);
 
@@ -15,6 +21,22 @@ class DecoratedEditText extends StatefulWidget {
 
 class _DecoratedEditTextState extends State<DecoratedEditText> {
   bool _focused = false;
+  late TextEditingController _textEditingController;
+
+  @override
+  void initState() {
+    _textEditingController = TextEditingController();
+    _textEditingController.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +47,14 @@ class _DecoratedEditTextState extends State<DecoratedEditText> {
         });
       },
       child: TextField(
+        maxLines: widget.maxLines,
+        controller: _textEditingController,
         decoration: InputDecoration(
+          alignLabelWithHint: true,
+          counterText: _getCounterText(),
+          counterStyle: const TextStyle(
+            fontSize: 14
+          ),
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(
               color: normalColor,
@@ -51,4 +80,7 @@ class _DecoratedEditTextState extends State<DecoratedEditText> {
       ),
     );
   }
+
+  _getCounterText() => widget.showCounter ?
+    "${_textEditingController.text.length}/${widget.maxCaracteres}" : "";
 }
