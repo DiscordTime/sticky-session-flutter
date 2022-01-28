@@ -22,7 +22,9 @@ class _GridColorPickerState extends State<GridColorPicker> {
     return Expanded(
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4
+          crossAxisCount: 4,
+          crossAxisSpacing: 30,
+          mainAxisSpacing: 15
         ),
         itemCount: widget.colors.length,
         itemBuilder: (value, index) {

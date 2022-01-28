@@ -1,26 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sticky_session/constants.dart';
-import 'package:flutter_sticky_session/create_session/components/circle_color_item.dart';
 import 'package:flutter_sticky_session/create_session/components/grid_color_picker.dart';
 import 'package:flutter_sticky_session/login_token/components/decorated_edit_text.dart';
-
-var colors = [
-  Color.fromARGB(255, 135, 54, 155),
-  Color.fromARGB(255, 74, 97, 156),
-  Color.fromARGB(255, 44, 159, 221),
-  Color.fromARGB(255, 240, 102, 68),
-  Color.fromARGB(255, 33, 115, 71),
-  Color.fromARGB(255, 69, 173, 123),
-  Color.fromARGB(255, 225, 134, 127),
-  Color.fromARGB(255, 205, 40, 42),
-  Color.fromARGB(255, 88, 88, 88),
-  Color.fromARGB(255, 121, 133, 190),
-  Color.fromARGB(255, 243, 193, 82),
-  Color.fromARGB(255, 60, 127, 249),
-];
-
 
 class CreateSessionScreen extends StatelessWidget {
   const CreateSessionScreen({Key? key}) : super(key: key);
@@ -37,47 +19,71 @@ class CreateSessionScreen extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.white,
-        elevation: 0,
+        elevation: 1,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: _onBackPressed,
           icon: const Icon(Icons.arrow_back, color: primaryColor,)
         ),
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.white,
           statusBarIconBrightness: Brightness.dark
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          children: [
-            const SizedBox(height: 30),
-            const DecoratedEditText(text: "Title"),
-
-            const SizedBox(height: 30),
-            const DecoratedEditText(
-              text: "Description",
-              maxLines: 3,
-              showCounter: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+              onPressed: _onSavePressed,
+              icon: const Icon(
+                Icons.check,
+                color: Colors.green,
+                size: 30,
+              )
             ),
+          )
+        ],
+      ),
+      body: Container(
+        color: backgroundScreenColor,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            children: const [
+              SizedBox(height: 50),
+              DecoratedEditText(text: "Title"),
 
-            const SizedBox(height: 40,),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Select a color",
-                style: TextStyle(
-                  color: normalColor,
-                  fontSize: 21
+              SizedBox(height: 40),
+              DecoratedEditText(
+                text: "Description",
+                maxLines: 3,
+                showCounter: true,
+              ),
+
+              SizedBox(height: 40,),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Select a color",
+                  style: TextStyle(
+                    color: normalColor,
+                    fontSize: 21
+                  ),
                 ),
               ),
-            ),
-            GridColorPicker(colors: colors)
+              SizedBox(height: 20,),
+              GridColorPicker(colors: chooseColorList)
 
-
-          ],
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  _onSavePressed() {
+    // TODO: Implement that!
+  }
+
+  _onBackPressed() {
+    // TODO: Implement that!
   }
 }
