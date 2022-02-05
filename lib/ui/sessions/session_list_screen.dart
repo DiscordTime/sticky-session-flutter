@@ -18,7 +18,7 @@ class UiSessionDetail {
 }
 
 class SessionListScreen extends StatefulWidget {
-  SessionListScreen({Key? key}) : super(key: key);
+  const SessionListScreen({Key? key}) : super(key: key);
 
   @override
   State<SessionListScreen> createState() => _SessionListScreenState();

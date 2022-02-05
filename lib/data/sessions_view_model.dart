@@ -9,6 +9,6 @@ class SessionsViewModel {
   SessionsViewModel(this.sessionRepository);
 
   Stream<List<UiSessionDetail>> getSessions() async* {
-    yield await sessionRepository.getSessions("7d5b5d1c-9dc4-4eb8-b3b8-3fb67cfdac89");
+    yield await sessionRepository.getSessions("285ed03f-6665-4e4c-a7fc-849abd3e0b95");
   }
 }

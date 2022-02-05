@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const primaryColor = Color.fromARGB(255, 254, 42, 32);
 const normalColor = Colors.grey;
+const recentMeetingCardColor = Color.fromARGB(255, 57, 4, 53);
 
 const backgroundScreenColor = Color.fromARGB(255, 241, 241, 241);
 
