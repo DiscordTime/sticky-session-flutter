@@ -6,7 +6,7 @@ import 'package:flutter_sticky_session/data/local/local_data_source.dart';
 import 'package:flutter_sticky_session/data/remote/remote_data_source.dart';
 import 'package:flutter_sticky_session/data/session_repository.dart';
 import 'package:flutter_sticky_session/data/sessions_view_model.dart';
-import 'package:flutter_sticky_session/sessions/components/session_card.dart';
+import 'package:flutter_sticky_session/ui/sessions/components/session_card.dart';
 
 class UiSessionDetail {
   final String name;
@@ -34,7 +34,7 @@ class _SessionListScreenState extends State<SessionListScreen> {
   void initState() {
     // sessionsViewModel.getSessions().listen((data) => {
     //   setState(() {
-    //     sessions = data;
+    //     ui.sessions = data;
     //   })
     // });
 

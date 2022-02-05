@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sticky_session/create_session/create_session_screen.dart';
-import 'package:flutter_sticky_session/sessions/session_list_screen.dart';
-
-import 'login_token/login_token_screen.dart';
+import 'package:flutter_sticky_session/ui/create_session/create_session_screen.dart';
+import 'package:flutter_sticky_session/ui/login_token/login_token_screen.dart';
+import 'package:flutter_sticky_session/ui/sessions/session_list_screen.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "login-token": (context) => const LoginWithTokenScreen(),
         "create-session": (context) => const CreateSessionScreen(),
-        "sessions": (context) => SessionListScreen(),
+        "ui.sessions": (context) => SessionListScreen(),
         "home": (context) => HomeScreen(),
       },
       initialRoute: "home",
@@ -53,7 +52,7 @@ class HomeScreen extends StatelessWidget {
 
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed("sessions");
+                Navigator.of(context).pushNamed("ui.sessions");
               },
               child: const Text("Session List Screen")
             ),

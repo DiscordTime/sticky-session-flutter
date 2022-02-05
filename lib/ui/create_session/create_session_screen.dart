@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sticky_session/constants.dart';
-import 'package:flutter_sticky_session/create_session/components/grid_color_picker.dart';
-import 'package:flutter_sticky_session/login_token/components/decorated_edit_text.dart';
+import 'package:flutter_sticky_session/ui/create_session/components/grid_color_picker.dart';
+import 'package:flutter_sticky_session/ui/login_token/components/decorated_edit_text.dart';
 
 class CreateSessionScreen extends StatelessWidget {
   const CreateSessionScreen({Key? key}) : super(key: key);

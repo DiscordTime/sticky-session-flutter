@@ -5,7 +5,7 @@ import 'package:flutter_sticky_session/data/local/local_data_source.dart';
 import 'package:flutter_sticky_session/data/remote/remote_data_source.dart';
 import 'package:flutter_sticky_session/data/remote/session_response.dart';
 import 'package:flutter_sticky_session/data/session.dart';
-import 'package:flutter_sticky_session/sessions/session_list_screen.dart';
+import 'package:flutter_sticky_session/ui/sessions/session_list_screen.dart';
 
 Color fromHex(String hexString) {
   final buffer = StringBuffer();
