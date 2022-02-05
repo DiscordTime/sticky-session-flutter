@@ -4,7 +4,7 @@ import 'package:flutter_sticky_session/sessions/session_list_screen.dart';
 
 import 'login_token/login_token_screen.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
