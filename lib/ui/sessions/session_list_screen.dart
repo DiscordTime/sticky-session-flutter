@@ -3,19 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sticky_session/constants.dart';
 import 'package:flutter_sticky_session/data/local/local_data_source.dart';
-import 'package:flutter_sticky_session/data/remote/remote_data_source.dart';
+import 'package:flutter_sticky_session/data/remote/remote_session_data_source.dart';
 import 'package:flutter_sticky_session/data/session_repository.dart';
 import 'package:flutter_sticky_session/data/sessions_view_model.dart';
+import 'package:flutter_sticky_session/ui/meetings/ui_meeting_detail.dart';
 import 'package:flutter_sticky_session/ui/sessions/components/session_card.dart';
-
-class UiSessionDetail {
-  final String name;
-  final String description;
-  final int numberOfAnswers;
-  final Color highlightColor;
-
-  UiSessionDetail(this.name, this.description, this.numberOfAnswers, this.highlightColor);
-}
+import 'package:flutter_sticky_session/ui/sessions/ui_session_detail.dart';
 
 class SessionListScreen extends StatefulWidget {
   const SessionListScreen({Key? key}) : super(key: key);
@@ -26,23 +19,14 @@ class SessionListScreen extends StatefulWidget {
 
 class _SessionListScreenState extends State<SessionListScreen> {
   SessionsViewModel sessionsViewModel = SessionsViewModel(
-    SessionRepository(RemoteDataSource(), LocalDataSource())
+    SessionRepository(RemoteSessionDataSource(), LocalDataSource())
   );
   List<UiSessionDetail> sessions = List.of({});
 
   @override
-  void initState() {
-    // sessionsViewModel.getSessions().listen((data) => {
-    //   setState(() {
-    //     ui.sessions = data;
-    //   })
-    // });
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    UiMeetingDetail meetingDetail = ModalRoute.of(context)!.settings.arguments as UiMeetingDetail;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -68,7 +52,7 @@ class _SessionListScreenState extends State<SessionListScreen> {
       body: Container(
         color: backgroundScreenColor,
         child: StreamBuilder<List<UiSessionDetail>>(
-          stream: sessionsViewModel.getSessions(),
+          stream: sessionsViewModel.getSessions(meetingDetail.id),
           initialData: List.empty(),
           builder: (context, snapshot) {
             print("ListView.builder");

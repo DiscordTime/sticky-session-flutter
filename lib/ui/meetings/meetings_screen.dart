@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sticky_session/constants.dart';
 import 'package:flutter_sticky_session/data/meeting_repository.dart';
+import 'package:flutter_sticky_session/data/remote/remote_meeting_data_source.dart';
 import 'package:flutter_sticky_session/data/sample/sample_meeting_data_source.dart';
 import 'package:flutter_sticky_session/ui/meetings/components/meeting_card.dart';
 import 'package:flutter_sticky_session/ui/meetings/ui_meeting_detail.dart';
@@ -16,7 +17,8 @@ class MeetingsScreen extends StatefulWidget {
 
 class _MeetingsScreenState extends State<MeetingsScreen> {
   MeetingRepository meetingRepository = MeetingRepository(
-    SampleMeetingDaraSource()
+    SampleMeetingDaraSource(),
+    RemoteMeetingDataSource()
   );
 
   @override

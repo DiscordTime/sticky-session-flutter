@@ -4,6 +4,7 @@ import 'package:flutter_sticky_session/ui/meetings/ui_meeting_detail.dart';
 class SampleMeetingDaraSource {
 
   UiMeetingDetail meetingDetailSample = UiMeetingDetail(
+      id: "",
       title: "Restropective",
       local: "Sala 01 (Cesar Apolo) * 21/03 12:30",
       description: "Description Lorem ipsum dolor sit amet, cons ect etur adipiscai elit, sed do eiusmod tempor.",
@@ -14,6 +15,7 @@ class SampleMeetingDaraSource {
   );
 
   UiMeetingDetail meetingDetailSample2 = UiMeetingDetail(
+      id: "",
       title: "Restropective",
       local: "Sala 01 (Cesar Apolo) * 21/03 12:30",
       description: "Description Lorem ipsum dolor sit amet, cons ect etur adipiscai elit, sed do eiusmod tempor.",

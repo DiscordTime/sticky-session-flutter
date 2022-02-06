@@ -1,5 +1,6 @@
 
 class UiMeetingDetail {
+  final String id;
   final String title;
   final String description;
   final String local;
@@ -9,6 +10,7 @@ class UiMeetingDetail {
   final int peopleNumber;
 
   UiMeetingDetail({
+    required this.id,
     required this.title,
     required this.description,
     required this.local,
