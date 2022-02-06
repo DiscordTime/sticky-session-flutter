@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_sticky_session/ui/meetings/meetings_screen.dart';
 import 'package:flutter_sticky_session/ui/meetings/ui_meeting_detail.dart';
+
+const normalCardLine = Color.fromARGB(255, 207, 207, 207);
+const highlightCardLine = Color.fromARGB(255, 253, 75, 70);
 
 class MeetingCard extends StatelessWidget {
   final Color color;
@@ -28,7 +30,7 @@ class MeetingCard extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              color: highlight == 0 || highlight >= 100 ? const Color.fromARGB(255, 207, 207, 207) : const Color.fromARGB(255, 253, 75, 70),
+              color: highlight == 0 || highlight >= 100 ? normalCardLine : highlightCardLine,
               height: 8,
             ),
             Container(

@@ -40,7 +40,9 @@ class _SessionListScreenState extends State<SessionListScreen> {
         backgroundColor: Colors.white,
         elevation: 1,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: const Icon(Icons.arrow_back, color: primaryColor,)
         ),
         systemOverlayStyle: const SystemUiOverlayStyle(

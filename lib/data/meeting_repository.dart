@@ -7,16 +7,21 @@ import 'package:flutter_sticky_session/ui/meetings/ui_meeting_detail.dart';
 class MeetingRepository {
   final SampleMeetingDaraSource _localDataSource;
   final RemoteMeetingDataSource _remoteMeetingDataSource;
+  List<UiMeetingDetail>? _meetings;
 
   MeetingRepository(this._localDataSource, this._remoteMeetingDataSource);
 
-  Stream<List<UiMeetingDetail>> getRecentMeetings() async* {
-    yield await _localDataSource.getRecentMeetings();
+  Stream<List<UiMeetingDetail>> getMeetings() async* {
+    yield await _getMeetings();
   }
 
-  Stream<List<UiMeetingDetail>> getOlderMeetings() async* {
+  Future<List<UiMeetingDetail>> _getMeetings() async {
+    return _meetings ??= await getRemoteMeetings();
+  }
+
+  Future<List<UiMeetingDetail>> getRemoteMeetings() async {
     List<MeetingResponse> meetings = await _remoteMeetingDataSource.getMeetings();
-    yield meetings.map((meeting) => UiMeetingDetail(
+    return meetings.map((meeting) => UiMeetingDetail(
         id: meeting.id,
         title: meeting.title,
         description: meeting.description,
