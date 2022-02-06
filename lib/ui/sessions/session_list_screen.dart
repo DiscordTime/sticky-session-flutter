@@ -2,26 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sticky_session/constants.dart';
-import 'package:flutter_sticky_session/data/local/local_data_source.dart';
-import 'package:flutter_sticky_session/data/remote/remote_session_data_source.dart';
-import 'package:flutter_sticky_session/data/session_repository.dart';
 import 'package:flutter_sticky_session/data/sessions_view_model.dart';
 import 'package:flutter_sticky_session/ui/meetings/ui_meeting_detail.dart';
 import 'package:flutter_sticky_session/ui/sessions/components/session_card.dart';
 import 'package:flutter_sticky_session/ui/sessions/ui_session_detail.dart';
+import 'package:get_it/get_it.dart';
 
-class SessionListScreen extends StatefulWidget {
+class SessionListScreen extends StatelessWidget {
   const SessionListScreen({Key? key}) : super(key: key);
-
-  @override
-  State<SessionListScreen> createState() => _SessionListScreenState();
-}
-
-class _SessionListScreenState extends State<SessionListScreen> {
-  SessionsViewModel sessionsViewModel = SessionsViewModel(
-    SessionRepository(RemoteSessionDataSource(), LocalDataSource())
-  );
-  List<UiSessionDetail> sessions = List.of({});
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +42,9 @@ class _SessionListScreenState extends State<SessionListScreen> {
       body: Container(
         color: backgroundScreenColor,
         child: StreamBuilder<List<UiSessionDetail>>(
-          stream: sessionsViewModel.getSessions(meetingDetail.id),
+          stream: GetIt.I<SessionsViewModel>().getSessions(meetingDetail.id),
           initialData: List.empty(),
           builder: (context, snapshot) {
-            print("ListView.builder");
             return snapshot.data?.isEmpty ?? true ?
               const Text("Empty") :
               ListView.builder(
