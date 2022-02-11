@@ -45,13 +45,15 @@ class LocalDataSource {
     );
   }
 
-  insertSession(Session session) async {
+  insertSession(List<Session> sessions) async {
     var db = await database;
-    await db.insert(
-      'session', 
-      session.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace
-    );
+    for (var session in sessions) {
+      await db.insert(
+          'session',
+          session.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace
+      );
+    }
   }
 
   insertMeeting(List<MeetingDbEntity> meetings) async {
@@ -65,9 +67,13 @@ class LocalDataSource {
     }
   }
 
-  Future<List<Session>> getSessions() async {
+  Future<List<Session>> getSessions(String meetingId) async {
     var db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('session');
+    final List<Map<String, dynamic>> maps = await db.query(
+        'session',
+      where: "meetingId = ?",
+      whereArgs: [meetingId]
+    );
     return List.generate(maps.length, (i) => Session(
         id: maps[i]['id'],
         meetingId: maps[i]['meetingId'],

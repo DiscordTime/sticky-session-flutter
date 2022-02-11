@@ -12,17 +12,25 @@ class SessionRepository {
 
   SessionRepository(this.remoteDataSource, this.localDataSource);
 
-  Future<List<UiSessionDetail>> getSessions(String meetingId) async {
+  Stream<List<UiSessionDetail>> getSessions(String meetingId) async* {
+    var result = (await localDataSource.getSessions(meetingId)).map((session) => UiSessionDetail(
+        session.name, session.description, session.answer, fromHex(session.highlight)
+    )).toList();
+    if (result.isNotEmpty) yield result;
+
     List<SessionResponse> remoteData = await remoteDataSource.getSessions(meetingId);
-    return remoteData.map((sessionResponse) => Session(
+    List<Session> sessions = remoteData.map((sessionResponse) => Session(
       id: sessionResponse.id,
       meetingId: sessionResponse.meetingId,
       name: sessionResponse.name,
       description: sessionResponse.description,
       highlight: sessionResponse.highlight,
       answer: sessionResponse.answer
-    )).map((session) => UiSessionDetail(
-      session.name, session.description, session.answer, fromHex(session.highlight)
     )).toList();
+    yield sessions.map((session) => UiSessionDetail(
+        session.name, session.description, session.answer, fromHex(session.highlight)
+    )).toList();
+
+    await localDataSource.insertSession(sessions);
   }
 }

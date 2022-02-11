@@ -4,9 +4,7 @@ import 'package:flutter_sticky_session/data/local/local_data_source.dart';
 import 'package:flutter_sticky_session/data/meeting_repository.dart';
 import 'package:flutter_sticky_session/data/remote/remote_meeting_data_source.dart';
 import 'package:flutter_sticky_session/data/remote/remote_session_data_source.dart';
-import 'package:flutter_sticky_session/data/sample/sample_meeting_data_source.dart';
 import 'package:flutter_sticky_session/data/session_repository.dart';
-import 'package:flutter_sticky_session/data/sessions_view_model.dart';
 import 'package:flutter_sticky_session/env.dart';
 import 'package:flutter_sticky_session/ui/main_app.dart';
 
@@ -27,8 +25,11 @@ void main() async {
           RemoteMeetingDataSource()
       )
   );
-  GetIt.instance.registerSingleton<SessionsViewModel>(
-      SessionsViewModel(SessionRepository(RemoteSessionDataSource(), LocalDataSource()))
+  GetIt.instance.registerSingleton<SessionRepository>(
+      SessionRepository(
+          RemoteSessionDataSource(),
+          LocalDataSource()
+      )
   );
 
   runApp(const MainApp());
