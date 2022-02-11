@@ -23,8 +23,8 @@ void main() async {
 
   GetIt.instance.registerSingleton<MeetingRepository>(
       MeetingRepository(
-        SampleMeetingDaraSource(),
-        RemoteMeetingDataSource()
+          LocalDataSource(),
+          RemoteMeetingDataSource()
       )
   );
   GetIt.instance.registerSingleton<SessionsViewModel>(

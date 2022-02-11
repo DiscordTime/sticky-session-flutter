@@ -1,27 +1,34 @@
 
+import 'package:flutter_sticky_session/data/local/local_data_source.dart';
+import 'package:flutter_sticky_session/data/local/meeting_db_entity.dart';
 import 'package:flutter_sticky_session/data/remote/remote_meeting_data_source.dart';
 import 'package:flutter_sticky_session/data/remote/response/meeting_response.dart';
-import 'package:flutter_sticky_session/data/sample/sample_meeting_data_source.dart';
 import 'package:flutter_sticky_session/ui/meetings/ui_meeting_detail.dart';
 
 class MeetingRepository {
-  final SampleMeetingDaraSource _localDataSource;
+  final LocalDataSource _localDataSource;
   final RemoteMeetingDataSource _remoteMeetingDataSource;
   List<UiMeetingDetail>? _meetings;
 
   MeetingRepository(this._localDataSource, this._remoteMeetingDataSource);
 
   Stream<List<UiMeetingDetail>> getMeetings() async* {
-    yield await _getMeetings();
-  }
+    var localMeetings = await _localDataSource.getMeetings();
+    if (localMeetings.isNotEmpty) {
+      yield localMeetings.map((meeting) => UiMeetingDetail(
+          id: meeting.id,
+          title: meeting.title,
+          description: meeting.description,
+          local: meeting.local,
+          startTime: meeting.startDate,
+          endTime: meeting.endDate,
+          sessionNumber: meeting.sessions,
+          peopleNumber: meeting.people
+      )).toList();
+    }
 
-  Future<List<UiMeetingDetail>> _getMeetings() async {
-    return _meetings ??= await getRemoteMeetings();
-  }
-
-  Future<List<UiMeetingDetail>> getRemoteMeetings() async {
     List<MeetingResponse> meetings = await _remoteMeetingDataSource.getMeetings();
-    return meetings.map((meeting) => UiMeetingDetail(
+    yield _meetings ??= meetings.map((meeting) => UiMeetingDetail(
         id: meeting.id,
         title: meeting.title,
         description: meeting.description,
@@ -31,5 +38,16 @@ class MeetingRepository {
         sessionNumber: meeting.sessions,
         peopleNumber: meeting.people
     )).toList();
+
+    _localDataSource.insertMeeting(meetings.map((meeting) => MeetingDbEntity(
+        id: meeting.id,
+        title: meeting.title,
+        description: meeting.description,
+        startDate: meeting.startDate,
+        endDate: meeting.endDate,
+        local: meeting.local,
+        sessions: meeting.sessions,
+        people: meeting.people
+    )).toList());
   }
 }

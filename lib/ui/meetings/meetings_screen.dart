@@ -39,6 +39,7 @@ class MeetingsScreen extends StatelessWidget {
 
       body: Container(
         color: backgroundScreenColor,
+        height: double.maxFinite,
         child: DataWidgetLoader(
           dataStream: GetIt.I<MeetingRepository>().getMeetings(),
           onCreateChild: (List<UiMeetingDetail> meetings) => SingleChildScrollView(
