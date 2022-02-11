@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_sticky_session/constants.dart';
 import 'package:flutter_sticky_session/ui/meetings/components/meeting_card.dart';
 import 'package:flutter_sticky_session/ui/meetings/ui_meeting_detail.dart';
 
@@ -38,9 +37,7 @@ class MeetingCardList extends StatelessWidget {
             itemCount: meetings.length,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => MeetingCard(
-              color: isMarkedCard ? recentMeetingCardColor : Colors.white,
-              textColor: isMarkedCard ? Colors.white : Colors.black,
-              highlight: isMarkedCard ? 20 : 0,
+              isMarkedCard: isMarkedCard,
               meetingDetail: meetings[index],
               onPress: onPress,
             )

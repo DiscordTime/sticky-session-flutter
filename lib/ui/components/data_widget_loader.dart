@@ -23,12 +23,10 @@ class DataWidgetLoader<T> extends StatelessWidget {
     );
   }
 
-  Widget getLoading() => const Expanded(
-      child: Center(
+  Widget getLoading() => const Center(
         child: CircularProgressIndicator(
           color: primaryColor,
         ),
-      )
   );
 }
 
