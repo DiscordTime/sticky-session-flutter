@@ -14,7 +14,7 @@ class SessionRepository {
 
   Stream<List<UiSessionDetail>> getSessions(String meetingId) async* {
     var result = (await localDataSource.getSessions(meetingId)).map((session) => UiSessionDetail(
-        session.name, session.description, session.answer, fromHex(session.highlight)
+        session.id, session.name, session.description, session.answer, fromHex(session.highlight)
     )).toList();
     if (result.isNotEmpty) yield result;
 
@@ -28,7 +28,7 @@ class SessionRepository {
       answer: sessionResponse.answer
     )).toList();
     yield sessions.map((session) => UiSessionDetail(
-        session.name, session.description, session.answer, fromHex(session.highlight)
+        session.id, session.name, session.description, session.answer, fromHex(session.highlight)
     )).toList();
 
     await localDataSource.insertSession(sessions);

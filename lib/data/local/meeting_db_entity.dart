@@ -20,6 +20,17 @@ class MeetingDbEntity {
     required this.people
   });
 
+  static MeetingDbEntity toCreate(Map<String, dynamic> map) => MeetingDbEntity(
+      id: map['id'],
+      title: map['title'],
+      description: map['description'],
+      startDate: map['startDate'],
+      endDate: map['endDate'],
+      local: map['local'],
+      sessions: map['sessions'],
+      people: map['people']
+  );
+
   Map<String, dynamic> toMap() => {
     'id': id,
     'title': title,

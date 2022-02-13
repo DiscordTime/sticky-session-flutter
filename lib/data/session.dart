@@ -16,6 +16,15 @@ class Session {
     required this.answer
   });
 
+  static Session toCreate(Map<String, dynamic> map) => Session(
+      id: map['id'],
+      meetingId: map['meetingId'],
+      name: map['name'],
+      description: map['description'],
+      highlight: map['highlight'],
+      answer: map['answer']
+  );
+
   Map<String, dynamic> toMap() => {
     'id': id,
     'meetingId': meetingId,

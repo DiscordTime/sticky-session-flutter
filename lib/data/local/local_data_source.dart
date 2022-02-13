@@ -1,6 +1,7 @@
 
 import 'package:flutter_sticky_session/data/local/meeting_db_entity.dart';
 import 'package:flutter_sticky_session/data/session.dart';
+import 'package:flutter_sticky_session/data/sticky.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -30,6 +31,14 @@ class LocalDataSource {
             answer INTEGER
           );''');
 
+          await db.execute('''CREATE TABLE sticky(
+            id TEXT PRIMARY KEY,
+            content TEXT,
+            user TEXT,
+            session_id TEXT NOT NULL
+          );''');
+          // FOREIGN KEY (session_id) REFERENCES session (id) ON UPDATE CASCADE ON DELETE CASCADE
+
           await db.execute('''CREATE TABLE meeting(
             id TEXT PRIMARY KEY,
             title TEXT,
@@ -41,7 +50,7 @@ class LocalDataSource {
             people INTEGER
           );''');
         },
-        version: 3,
+        version: 1,
     );
   }
 
@@ -67,6 +76,17 @@ class LocalDataSource {
     }
   }
 
+  insertSticky(List<Sticky> stickies) async {
+    var db = await database;
+    for (var sticky in stickies) {
+      await db.insert(
+          'sticky',
+          sticky.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace
+      );
+    }
+  }
+
   Future<List<Session>> getSessions(String meetingId) async {
     var db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
@@ -74,28 +94,33 @@ class LocalDataSource {
       where: "meetingId = ?",
       whereArgs: [meetingId]
     );
-    return List.generate(maps.length, (i) => Session(
-        id: maps[i]['id'],
-        meetingId: maps[i]['meetingId'],
-        name: maps[i]['name'],
-        description: maps[i]['description'],
-        highlight: maps[i]['highlight'],
-        answer: maps[i]['answer']
-    ));
+    print("sessions: $maps");
+    return List.generate(maps.length, (i) => Session.toCreate(maps[i]));
   }
 
   Future<List<MeetingDbEntity>> getMeetings() async {
     var db = await database;
     final List<Map<String, dynamic>> maps = await db.query('meeting');
-    return List.generate(maps.length, (i) => MeetingDbEntity(
-        id: maps[i]['id'],
-        title: maps[i]['title'],
-        description: maps[i]['description'],
-        startDate: maps[i]['startDate'],
-        endDate: maps[i]['endDate'],
-        local: maps[i]['local'],
-        sessions: maps[i]['sessions'],
-        people: maps[i]['people']
-    ));
+    return List.generate(maps.length, (i) => MeetingDbEntity.toCreate(maps[i]));
   }
+
+  Future<List<Sticky>> getStickies(String sessionId) async {
+    var db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+        'sticky',
+        where: "session_id = ?",
+        whereArgs: [sessionId]
+    );
+    print("sticky: $maps");
+    return List.generate(maps.length, (i) => Sticky.toSticky(maps[i]));
+  }
+  
+  deleteSession(String sessionId) async {
+    var db = await database;
+    db.delete('session',
+        where: "id = ?",
+        whereArgs: [sessionId]
+    );
+  }
+  
 }

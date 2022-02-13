@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sticky_session/constants.dart';
 import 'package:flutter_sticky_session/data/session_repository.dart';
+import 'package:flutter_sticky_session/data/sticky_repository.dart';
 import 'package:flutter_sticky_session/ui/components/data_widget_loader.dart';
 import 'package:flutter_sticky_session/ui/meetings/ui_meeting_detail.dart';
 import 'package:flutter_sticky_session/ui/sessions/components/session_card.dart';
@@ -81,5 +82,6 @@ class SessionListScreen extends StatelessWidget {
 
   _onSessionCardPressed(UiSessionDetail session) {
     // TODO: Implement that!
+    GetIt.I<StickyRepository>().getStickies(session.id);
   }
 }
