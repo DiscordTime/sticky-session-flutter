@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sticky_session/ui/create_session/create_session_screen.dart';
 import 'package:flutter_sticky_session/ui/login_token/login_token_screen.dart';
 import 'package:flutter_sticky_session/ui/meetings/meetings_screen.dart';
+import 'package:flutter_sticky_session/ui/session/session_screen.dart';
 import 'package:flutter_sticky_session/ui/sessions/session_list_screen.dart';
 
 class MainApp extends StatelessWidget {
@@ -19,6 +20,7 @@ class MainApp extends StatelessWidget {
         "create-session": (context) => const CreateSessionScreen(),
         "sessions": (context) => const SessionListScreen(),
         "meetings": (context) => const MeetingsScreen(),
+        "session": (context) => const SessionScreen(),
       },
       initialRoute: "meetings",
     );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sticky_session/constants.dart';
 import 'package:flutter_sticky_session/ui/components/decorated_edit_text.dart';
-import 'package:flutter_sticky_session/ui/login_token/components/horizontal_elevated_button.dart';
+import 'package:flutter_sticky_session/ui/components/horizontal_elevated_button.dart';
 
 class LoginWithTokenScreen extends StatelessWidget {
   const LoginWithTokenScreen({Key? key}) : super(key: key);
@@ -52,6 +52,8 @@ class LoginWithTokenScreen extends StatelessWidget {
             HorizontalElevatedButton(
               text: "Log In",
               onPress: _onLoginPressed,
+              color: primaryColor,
+              textColor: Colors.white
             ),
 
             Expanded(

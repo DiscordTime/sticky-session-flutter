@@ -1,6 +1,7 @@
 
 import 'package:flutter_sticky_session/data/local/local_data_source.dart';
 import 'package:flutter_sticky_session/data/sticky.dart';
+import 'package:flutter_sticky_session/ui/session/ui_column_detail.dart';
 
 class StickyRepository {
   final LocalDataSource localDataSource;
@@ -21,5 +22,15 @@ class StickyRepository {
     // localDataSource.getStickies(sessionId);
   }
 
-
+  Stream<List<UiColumnDetail>> getStickiesByColumns() async* {
+    // await Future.delayed(Duration(seconds: 3));
+    List<Sticky> stickies = List.generate(5, (index) => Sticky(id: "01", content: "Description Lorem ipsum dolor sit amet, cons ect etur adipiscai elit, seddo eiusmod tempor. Lorem ipsumdolor sit amet, cons ect etur adipiscai elit, sed do eiusmod tempor.", user: "Victor Rattis", sessionId: "s02"));
+    yield List.of({
+      UiColumnDetail(name: "MORE", color: 0xffc5ffe4, stickies: stickies),
+      UiColumnDetail(name: "START", color: 0xffd0e3fd, stickies: List.generate(1, (index) => Sticky(id: "01", content: "Description Lorem ipsum dolor sit amet, cons ect etur adipiscai elit, seddo eiusmod tempor. Lorem ipsumdolor sit amet, cons ect etur adipiscai elit, sed do eiusmod tempor.", user: "Victor Rattis", sessionId: "s02"))),
+      UiColumnDetail(name: "KEEP", color: 0xffc5ffe4, stickies: List.generate(2, (index) => Sticky(id: "01", content: "Description Lorem ipsum dolor sit amet, cons ect etur adipiscai elit, seddo eiusmod tempor. Lorem ipsumdolor sit amet, cons ect etur adipiscai elit, sed do eiusmod tempor.", user: "Victor Rattis", sessionId: "s02"))),
+      UiColumnDetail(name: "LESS", color: 0xffffd5c9, stickies: stickies),
+      UiColumnDetail(name: "STOP", color: 0xffc5ffe4, stickies: List.generate(3, (index) => Sticky(id: "01", content: "Description Lorem ipsum dolor sit amet, cons ect etur adipiscai elit, seddo eiusmod tempor. Lorem ipsumdolor sit amet, cons ect etur adipiscai elit, sed do eiusmod tempor.", user: "Victor Rattis", sessionId: "s02"))),
+    });
+  }
 }

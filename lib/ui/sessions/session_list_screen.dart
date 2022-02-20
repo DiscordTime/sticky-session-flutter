@@ -50,7 +50,7 @@ class SessionListScreen extends StatelessWidget {
               const Text("Empty") :
               ListView.builder(
                 itemCount: sessions.length,
-                itemBuilder: (context, index) => _createSessionCard(sessions[index])
+                itemBuilder: (context, index) => _createSessionCard(context, sessions[index])
               );
           },
         ),
@@ -68,20 +68,19 @@ class SessionListScreen extends StatelessWidget {
     );
   }
 
-  _createSessionCard(UiSessionDetail session) => SessionCard(
+  _createSessionCard(BuildContext context, UiSessionDetail session) => SessionCard(
     title: session.name,
     description: session.description,
     highlightColor: session.highlightColor,
     answerNumber: session.numberOfAnswers,
-    onPressed: () { _onSessionCardPressed(session); },
+    onPressed: () {
+      Navigator.of(context).pushNamed("session", arguments: session);
+    },
   );
 
   _onCreateSessionPressed() {
     // TODO: Implement that!
   }
 
-  _onSessionCardPressed(UiSessionDetail session) {
-    // TODO: Implement that!
-    GetIt.I<StickyRepository>().getStickies(session.id);
-  }
+
 }

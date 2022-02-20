@@ -5,11 +5,15 @@ import 'package:flutter_sticky_session/constants.dart';
 class HorizontalElevatedButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPress;
+  final Color color;
+  final Color textColor;
 
   const HorizontalElevatedButton({
     required this.text,
     required this.onPress,
-    Key? key
+    required this.color,
+    required this.textColor,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -17,19 +21,20 @@ class HorizontalElevatedButton extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: ElevatedButton(                  
+          child: ElevatedButton(
             onPressed: onPress,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 15.0),
               child: Text(
                 text,
-                style: const TextStyle(
-                  fontSize: 18
+                style: TextStyle(
+                  fontSize: 18,
+                  color: textColor
                 ),
-              ),
+              )
             ),
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(primaryColor)
+              backgroundColor: MaterialStateProperty.all(color),
             ),
             
           ),
